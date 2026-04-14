@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cheick Mamadou Konaté — IT Portfolio</title>
+
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="Portfolio de Cheick Mamadou Konaté (sultan226-tech) — Étudiant en Génie Logiciel à l'Université Aube Nouvelle de Bobo-Dioulasso. Développeur Web, PWA, Python, React."/>
+  <meta name="keywords" content="sultan226-tech, Cheick Mamadou Konaté, Génie Logiciel, Bobo-Dioulasso, développeur web, React, Python, portfolio, Burkina Faso"/>
+  <meta name="author" content="Cheick Mamadou Konaté"/>
+  <meta property="og:title" content="Cheick Mamadou Konaté — IT Portfolio"/>
+  <meta property="og:description" content="Étudiant en Génie Logiciel, passionné par l'IA, la cybersécurité et la robotique."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://sultan226-tech.github.io"/>
+  <meta property="og:image" content="https://api.dicebear.com/8.x/notionists/svg?seed=sultan&backgroundColor=b6e3f4"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- ✅ Favicon SVG inline -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111010'/><text y='72' x='10' font-size='62' font-family='serif' font-weight='900' fill='%23FF5C3A'>S</text></svg>"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── LIGHT THEME ── */
+    :root {
+      --bg: #F7F5F0;
+      --surface: #FFFFFF;
+      --ink: #111010;
+      --muted: #6B6860;
+      --accent1: #FF5C3A;
+      --accent2: #3A7FFF;
+      --accent3: #1DC88A;
+      --accent4: #F5C842;
+      --border: #E2DFD8;
+      --radius: 18px;
+      --nav-bg: rgba(247,245,240,.9);
+      --shadow: rgba(0,0,0,.07);
+      --shadow-hover: rgba(0,0,0,.09);
+    }
+
+    /* ✅ DARK THEME */
+    [data-theme="dark"] {
+      --bg: #0E0E0E;
+      --surface: #1A1A1A;
+      --ink: #F0EDE8;
+      --muted: #888580;
+      --border: #2A2A2A;
+      --nav-bg: rgba(14,14,14,.92);
+      --shadow: rgba(0,0,0,.3);
+      --shadow-hover: rgba(0,0,0,.5);
+    }
+    [data-theme="dark"] .hero-title .line3 { -webkit-text-stroke-color: var(--ink); }
+    [data-theme="dark"] .cursor { mix-blend-mode: normal; }
+    [data-theme="dark"] .stack-tag { background: #222; }
+    [data-theme="dark"] .social-btn { background: #222; }
+    [data-theme="dark"] .skill-card { background: #1A1A1A; }
+    [data-theme="dark"] .form-input,
+    [data-theme="dark"] .form-textarea { background: #1A1A1A; color: var(--ink); }
+    [data-theme="dark"] .timeline-dot { background: var(--bg); }
+    [data-theme="dark"] .filter-btn { background: #1A1A1A; color: var(--muted); }
+    [data-theme="dark"] .filter-btn.active { background: var(--ink); color: var(--bg); }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+      transition: background .3s, color .3s;
+    }
+
+    /* ── CURSOR ── */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--accent1); border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transition: transform .15s ease, background .2s;
+      mix-blend-mode: multiply;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--accent1); border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transition: transform .35s cubic-bezier(.25,.46,.45,.94), border-color .2s;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s, border-color .3s;
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 900; font-size: 1.3rem;
+      letter-spacing: -0.03em; color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent1); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: .82rem; font-weight: 500; letter-spacing: .04em;
+      text-transform: uppercase; text-decoration: none; color: var(--muted);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ✅ NAV CONTROLS (dark, lang, cta) */
+    .nav-controls { display: flex; align-items: center; gap: 10px; }
+
+    /* ✅ DARK MODE TOGGLE */
+    .theme-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem;
+      transition: all .2s; color: var(--ink);
+    }
+    .theme-btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    /* ✅ LANGUE TOGGLE */
+    .lang-btn {
+      height: 38px; padding: 0 14px; border-radius: 100px;
+      background: var(--surface); border: 1px solid var(--border);
+      font-size: .75rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; cursor: pointer; color: var(--muted);
+      transition: all .2s;
+    }
+    .lang-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+    .nav-cta {
+      background: var(--ink); color: var(--bg);
+      padding: 10px 22px; border-radius: 100px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--accent1); color: #fff; transform: scale(1.04); }
+
+    /* ✅ HAMBURGER */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none;
+      padding: 4px; z-index: 200;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--ink); border-radius: 2px; transition: all .3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      display: none; position: fixed; inset: 0;
+      background: var(--bg); backdrop-filter: blur(16px);
+      z-index: 150;
+      flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem; font-weight: 900;
+      text-decoration: none; color: var(--ink);
+      letter-spacing: -.03em; transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--accent1); }
+    .mobile-menu-controls {
+      display: flex; gap: 12px; margin-top: 12px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 60px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-shape {
+      position: absolute; right: -120px; top: 50%;
+      transform: translateY(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle at 40% 40%, #FF5C3A22 0%, #3A7FFF11 50%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+      animation: float 8s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-53%) scale(1.04); }
+    }
+    .hero-left { position: relative; z-index: 2; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 8px 16px; border-radius: 100px;
+      font-size: .78rem; font-weight: 500; color: var(--muted);
+      margin-bottom: 28px; animation: fadeUp .6s ease both;
+    }
+    .hero-badge::before {
+      content: ''; width: 8px; height: 8px;
+      border-radius: 50%; background: var(--accent3);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    .hero-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 900; font-size: clamp(3rem, 5.5vw, 5.5rem);
+      line-height: .95; letter-spacing: -.04em;
+      animation: fadeUp .7s .1s ease both;
+    }
+    .hero-title .line2 { color: var(--accent1); }
+    .hero-title .line3 { -webkit-text-stroke: 2px var(--ink); color: transparent; }
+
+    /* ✅ TYPEWRITER */
+    .typewriter-wrap {
+      margin-top: 20px; height: 32px;
+      animation: fadeUp .7s .15s ease both;
+    }
+    .typewriter {
+      font-size: 1.1rem; font-weight: 500; color: var(--accent2);
+      border-right: 2px solid var(--accent2);
+      white-space: nowrap; overflow: hidden;
+      display: inline-block;
+    }
+
+    .hero-desc {
+      margin-top: 16px; max-width: 420px;
+      font-size: 1rem; line-height: 1.65; color: var(--muted);
+      animation: fadeUp .7s .2s ease both;
+    }
+    .hero-actions {
+      display: flex; gap: 16px; margin-top: 36px; flex-wrap: wrap;
+      animation: fadeUp .7s .3s ease both;
+    }
+    .btn-primary {
+      background: var(--ink); color: var(--bg);
+      padding: 16px 32px; border-radius: 100px;
+      font-size: .9rem; font-weight: 600; letter-spacing: .04em;
+      text-decoration: none; transition: all .25s;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .btn-primary:hover { background: var(--accent1); color: #fff; transform: translateY(-2px); }
+    .btn-outline {
+      border: 1.5px solid var(--border); color: var(--ink);
+      padding: 16px 32px; border-radius: 100px;
+      font-size: .9rem; font-weight: 500;
+      text-decoration: none; transition: all .25s;
+    }
+    .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+    /* ✅ BOUTON CV */
+    .btn-cv {
+      background: var(--accent3); color: #fff;
+      padding: 16px 28px; border-radius: 100px;
+      font-size: .9rem; font-weight: 600; letter-spacing: .04em;
+      text-decoration: none; transition: all .25s;
+      display: flex; align-items: center; gap: 8px;
+      border: none; cursor: pointer;
+    }
+    .btn-cv:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 56px;
+      animation: fadeUp .7s .4s ease both;
+    }
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem; font-weight: 900; color: var(--ink);
+    }
+    .stat-label { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+
+    /* HERO RIGHT */
+    .hero-right {
+      display: flex; justify-content: center; align-items: center;
+      position: relative; z-index: 2;
+      animation: fadeIn .9s .2s ease both;
+    }
+    .avatar-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 28px; padding: 40px 36px; text-align: center;
+      box-shadow: 0 24px 80px var(--shadow);
+      position: relative; max-width: 300px; width: 100%;
+      transition: background .3s, border-color .3s;
+    }
+    .avatar-card::before {
+      content: '';
+      position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+      width: 60%; height: 3px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      border-radius: 0 0 4px 4px;
+    }
+    .avatar-img {
+      width: 110px; height: 110px; border-radius: 50%;
+      object-fit: cover; margin: 0 auto 16px;
+      border: 3px solid var(--border);
+    }
+    .avatar-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.4rem; }
+    .avatar-role { font-size: .85rem; color: var(--muted); margin-top: 4px; }
+    .avatar-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px; }
+    .tag { font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 6px 12px; border-radius: 100px; }
+    .tag-orange { background: #FF5C3A18; color: var(--accent1); }
+    .tag-blue   { background: #3A7FFF18; color: var(--accent2); }
+    .tag-green  { background: #1DC88A18; color: var(--accent3); }
+    .tag-yellow { background: #F5C84218; color: #B8920A; }
+    .avatar-socials { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
+    .social-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--bg); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; color: var(--muted); font-size: .9rem;
+      transition: all .2s;
+    }
+    .social-btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 60px; }
+    .section-label {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent1); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900; letter-spacing: -.03em; line-height: 1.1;
+    }
+    .section-sub { color: var(--muted); font-size: 1rem; margin-top: 12px; max-width: 520px; }
+    .section-header { margin-bottom: 60px; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--surface); transition: background .3s; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .skill-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 24px;
+      transition: all .25s; position: relative; overflow: hidden;
+    }
+    .skill-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 3px; background: var(--c, var(--accent1));
+      transform: scaleX(0); transform-origin: left; transition: transform .3s ease;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px var(--shadow); }
+    .skill-card:hover::after { transform: scaleX(1); }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .skill-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: .95rem; }
+    .skill-level { margin-top: 12px; height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
+    .skill-bar { height: 100%; border-radius: 2px; background: var(--c, var(--accent1)); width: 0%; transition: width 1.4s cubic-bezier(.25,.46,.45,.94); }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg); }
+
+    /* ✅ FILTRES PROJETS */
+    .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+    .filter-btn {
+      padding: 8px 20px; border-radius: 100px; border: 1.5px solid var(--border);
+      background: var(--surface); color: var(--muted);
+      font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+      cursor: pointer; transition: all .2s;
+    }
+    .filter-btn:hover { border-color: var(--ink); color: var(--ink); }
+    .filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 24px; overflow: hidden;
+      transition: all .3s; display: flex; flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px var(--shadow-hover); }
+    .project-card.hidden { display: none; }
+    .project-thumb {
+      height: 200px; display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; position: relative; overflow: hidden;
+    }
+    .project-thumb-overlay { position: absolute; inset: 0; }
+    .project-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+    .project-type { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px; }
+    .project-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.25rem; }
+    .project-desc { font-size: .88rem; color: var(--muted); margin-top: 10px; line-height: 1.6; flex: 1; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .stack-tag {
+      font-size: .7rem; font-weight: 600; letter-spacing: .04em;
+      padding: 5px 10px; border-radius: 6px;
+      background: var(--bg); border: 1px solid var(--border); color: var(--muted);
+      transition: background .3s;
+    }
+    .project-links { display: flex; gap: 12px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .project-link {
+      font-size: .8rem; font-weight: 600; letter-spacing: .04em;
+      text-transform: uppercase; text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      color: var(--ink); transition: color .2s;
+    }
+    .project-link:hover { color: var(--accent1); }
+    .project-link svg { width: 14px; height: 14px; }
+    .badge-soon {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .7rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--muted); background: var(--bg); border: 1px solid var(--border);
+      padding: 5px 10px; border-radius: 100px;
+    }
+    .project-card.featured { grid-column: span 2; }
+    .project-card.featured .project-thumb { height: 260px; font-size: 5rem; }
+
+    /* ✅ TIMELINE */
+    #timeline { background: var(--surface); transition: background .3s; }
+    .timeline { position: relative; max-width: 700px; margin: 0 auto; padding-left: 40px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 12px; top: 0; bottom: 0;
+      width: 2px; background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 48px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute; left: -34px; top: 6px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--surface); border: 2px solid var(--accent1);
+      transition: background .3s;
+    }
+    .timeline-dot.filled { background: var(--accent1); }
+    .timeline-date {
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent1); margin-bottom: 8px;
+    }
+    .timeline-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 6px; }
+    .timeline-desc { font-size: .9rem; color: var(--muted); line-height: 1.65; }
+    .timeline-badge {
+      display: inline-block; margin-top: 10px;
+      font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px;
+    }
+    .tb-orange { background: #FF5C3A18; color: var(--accent1); }
+    .tb-blue   { background: #3A7FFF18; color: var(--accent2); }
+    .tb-green  { background: #1DC88A18; color: var(--accent3); }
+
+    /* ── ENGAGEMENT ── */
+    #engagement { background: var(--bg); }
+    .engagement-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .engagement-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 24px; padding: 36px; position: relative; overflow: hidden;
+      transition: all .3s;
+    }
+    .engagement-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px var(--shadow); }
+    .engagement-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    }
+    .engagement-icon { font-size: 2.5rem; margin-bottom: 20px; }
+    .engagement-role { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent1); margin-bottom: 8px; }
+    .engagement-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.3rem; margin-bottom: 12px; }
+    .engagement-desc { font-size: .9rem; color: var(--muted); line-height: 1.65; }
+    .engagement-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--ink); color: #fff; transition: background .3s; }
+    [data-theme="dark"] #about { background: #050505; }
+    #about .section-label { color: var(--accent3); }
+    #about .section-title { color: #fff; }
+    #about .section-sub { color: rgba(255,255,255,.55); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-text p { color: rgba(255,255,255,.7); line-height: 1.75; font-size: 1rem; margin-bottom: 16px; }
+    .about-text p strong { color: #fff; }
+    .about-highlights { display: flex; flex-direction: column; gap: 16px; }
+    .highlight-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 20px 24px; transition: background .2s;
+    }
+    .highlight-item:hover { background: rgba(255,255,255,.08); }
+    .hi-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .hi-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: .95rem; }
+    .hi-sub { font-size: .82rem; color: rgba(255,255,255,.45); margin-top: 2px; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); }
+    .contact-wrapper {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 28px; padding: 64px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: start; max-width: 900px; margin: 0 auto;
+      transition: background .3s, border-color .3s;
+    }
+    .contact-info h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; }
+    .contact-info p { color: var(--muted); line-height: 1.65; }
+    .contact-items { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+    .contact-item { display: flex; align-items: center; gap: 14px; font-size: .9rem; }
+    .contact-item a { color: var(--ink); text-decoration: none; transition: color .2s; }
+    .contact-item a:hover { color: var(--accent1); }
+    .contact-item-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--bg); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .form-input, .form-textarea {
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 14px 16px;
+      font-family: 'DM Sans', sans-serif; font-size: .9rem;
+      color: var(--ink); transition: border-color .2s, background .3s;
+      outline: none; width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent1); }
+    .form-textarea { height: 110px; resize: vertical; }
+    .form-btn {
+      background: var(--ink); color: var(--bg);
+      border: none; border-radius: 100px;
+      padding: 16px; font-family: 'DM Sans', sans-serif;
+      font-size: .9rem; font-weight: 600; letter-spacing: .04em;
+      cursor: pointer; transition: all .25s; width: 100%;
+    }
+    .form-btn:hover { background: var(--accent1); color: #fff; transform: translateY(-2px); }
+    .form-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 32px; right: 32px; z-index: 9999;
+      background: var(--ink); color: var(--bg);
+      padding: 16px 24px; border-radius: 14px;
+      font-size: .9rem; font-weight: 500;
+      box-shadow: 0 12px 40px rgba(0,0,0,.2);
+      transform: translateY(80px); opacity: 0;
+      transition: all .4s cubic-bezier(.25,.46,.45,.94);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: var(--accent3); color: #fff; }
+    .toast.error { background: var(--accent1); color: #fff; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,.4);
+      padding: 40px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: .8rem; transition: background .3s;
+    }
+    [data-theme="dark"] footer { background: #050505; }
+    footer .footer-logo { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.1rem; color: #fff; }
+    footer .footer-logo span { color: var(--accent1); }
+
+    /* Scroll line */
+    .scroll-line { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent1); z-index: 200; width: 0%; transition: width .1s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 50px; }
+      .hero-right { order: -1; }
+      section { padding: 70px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact-wrapper { grid-template-columns: 1fr; padding: 36px 28px; gap: 36px; }
+      .project-card.featured { grid-column: span 1; }
+      .engagement-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 10px; text-align: center; }
+      .hero-stats { gap: 24px; }
+    }
+    @media (max-width: 500px) {
+      .hero-title { font-size: 2.6rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scroll-line" id="scrollLine"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navigation">
+  <a href="#skills" onclick="closeMobileMenu()" data-fr="Skills" data-en="Skills">Skills</a>
+  <a href="#projects" onclick="closeMobileMenu()" data-fr="Projets" data-en="Projects">Projets</a>
+  <a href="#timeline" onclick="closeMobileMenu()" data-fr="Parcours" data-en="Journey">Parcours</a>
+  <a href="#engagement" onclick="closeMobileMenu()" data-fr="Engagement" data-en="Involvement">Engagement</a>
+  <a href="#about" onclick="closeMobileMenu()" data-fr="À propos" data-en="About">À propos</a>
+  <a href="#contact" onclick="closeMobileMenu()" data-fr="Contact" data-en="Contact">Contact</a>
+  <div class="mobile-menu-controls">
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Changer le thème">🌙</button>
+    <button class="lang-btn" onclick="toggleLang()" id="langBtnMobile">EN</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">sultan226<span>.</span></a>
+  <ul class="nav-links" role="list">
+    <li><a href="#skills" data-fr="Skills" data-en="Skills">Skills</a></li>
+    <li><a href="#projects" data-fr="Projets" data-en="Projects">Projets</a></li>
+    <li><a href="#timeline" data-fr="Parcours" data-en="Journey">Parcours</a></li>
+    <li><a href="#engagement" data-fr="Engagement" data-en="Involvement">Engagement</a></li>
+    <li><a href="#about" data-fr="À propos" data-en="About">À propos</a></li>
+    <li><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
+  </ul>
+  <div class="nav-controls">
+    <!-- ✅ Dark mode -->
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Changer le thème">🌙</button>
+    <!-- ✅ Langue -->
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
+    <!-- CTA -->
+    <a href="#contact" class="nav-cta" data-fr="Me contacter" data-en="Contact me">Me contacter</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-shape" aria-hidden="true"></div>
+  <div class="hero-left">
+    <div class="hero-badge" data-fr="Disponible pour stages &amp; projets" data-en="Open to internships &amp; projects">Disponible pour stages &amp; projets</div>
+    <h1 class="hero-title">
+      Génie<br>
+      <span class="line2">Logiciel &</span><br>
+      <span class="line3">Créateur</span>
+    </h1>
+    <!-- ✅ TYPEWRITER -->
+    <div class="typewriter-wrap">
+      <span class="typewriter" id="typewriter"></span>
+    </div>
+    <p class="hero-desc" data-fr="Étudiant en 1ère année de Technologie du Génie Logiciel à l'Université Aube Nouvelle de Bobo. Passionné par l'IA, la cybersécurité et la robotique." data-en="First-year Software Engineering student at Université Aube Nouvelle de Bobo. Passionate about AI, cybersecurity and robotics.">
+      Étudiant en 1ère année de Technologie du Génie Logiciel à l'Université Aube Nouvelle de Bobo.
+      Passionné par l'IA, la cybersécurité et la robotique.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary" data-fr="Voir mes projets" data-en="See my projects">
+        Voir mes projets
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://github.com/Sultan226-Tech" target="_blank" rel="noopener noreferrer" class="btn-outline">GitHub ↗</a>
+      <!-- ✅ BOUTON CV -->
+      <a href="#" class="btn-cv" id="cvBtn" onclick="downloadCV(event)" data-fr="Télécharger CV" data-en="Download CV">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Télécharger CV
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num" data-target="6">0</div>
+        <div class="stat-label" data-fr="Projets publiés" data-en="Published projects">Projets publiés</div>
+      </div>
+      <div>
+        <div class="stat-num" data-target="8">0</div>
+        <div class="stat-label" data-fr="Technologies" data-en="Technologies">Technologies</div>
+      </div>
+      <div>
+        <div class="stat-num" data-suffix="%">100</div>
+        <div class="stat-label" data-fr="Motivation" data-en="Motivation">Motivation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="avatar-card">
+      <img src="https://api.dicebear.com/8.x/notionists/svg?seed=sultan&backgroundColor=b6e3f4" alt="Avatar de Cheick Mamadou Konaté" class="avatar-img"/>
+      <div class="avatar-name">sultan226-tech</div>
+      <div class="avatar-role">Génie Logiciel · Université Aube Nouvelle</div>
+      <div class="avatar-tags">
+        <span class="tag tag-orange">React</span>
+        <span class="tag tag-blue">Python</span>
+        <span class="tag tag-green">SQL</span>
+        <span class="tag tag-yellow">IA</span>
+        <span class="tag tag-orange">Cybersécurité</span>
+      </div>
+      <div class="avatar-socials">
+        <a href="https://github.com/Sultan226-Tech" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Profil GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        </a>
+        <a href="https://sultan226-tech.github.io/English-master/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Application English Master">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <div class="section-label" data-fr="Compétences" data-en="Skills">Compétences</div>
+    <h2 class="section-title" data-fr="Mon stack tech" data-en="My tech stack">Mon stack tech</h2>
+    <p class="section-sub" data-fr="Les technologies que j'utilise pour construire des projets concrets." data-en="The technologies I use to build real projects.">Les technologies que j'utilise pour construire des projets concrets.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card" style="--c:#FF5C3A"><div class="skill-icon" aria-hidden="true">⚛️</div><div class="skill-name">React</div><div class="skill-level"><div class="skill-bar" data-width="80%"></div></div></div>
+    <div class="skill-card" style="--c:#F7DF1E"><div class="skill-icon" aria-hidden="true">🟨</div><div class="skill-name">JavaScript</div><div class="skill-level"><div class="skill-bar" data-width="75%"></div></div></div>
+    <div class="skill-card" style="--c:#3A7FFF"><div class="skill-icon" aria-hidden="true">🐍</div><div class="skill-name">Python</div><div class="skill-level"><div class="skill-bar" data-width="70%"></div></div></div>
+    <div class="skill-card" style="--c:#1DC88A"><div class="skill-icon" aria-hidden="true">🗄️</div><div class="skill-name">SQL / MERISE</div><div class="skill-level"><div class="skill-bar" data-width="72%"></div></div></div>
+    <div class="skill-card" style="--c:#E34F26"><div class="skill-icon" aria-hidden="true">🌐</div><div class="skill-name">HTML / CSS</div><div class="skill-level"><div class="skill-bar" data-width="85%"></div></div></div>
+    <div class="skill-card" style="--c:#F5C842"><div class="skill-icon" aria-hidden="true">🐙</div><div class="skill-name">Git / GitHub</div><div class="skill-level"><div class="skill-bar" data-width="68%"></div></div></div>
+    <div class="skill-card" style="--c:#6B5CE7"><div class="skill-icon" aria-hidden="true">📱</div><div class="skill-name">PWA / Android</div><div class="skill-level"><div class="skill-bar" data-width="65%"></div></div></div>
+    <div class="skill-card" style="--c:#FF6B6B"><div class="skill-icon" aria-hidden="true">🔐</div><div class="skill-name">Cybersécurité</div><div class="skill-level"><div class="skill-bar" data-width="40%"></div></div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <div class="section-label" data-fr="Projets" data-en="Projects">Projets</div>
+    <h2 class="section-title" data-fr="Ce que j'ai construit" data-en="What I've built">Ce que j'ai construit</h2>
+    <p class="section-sub" data-fr="Des projets réels, déployés et documentés." data-en="Real, deployed and documented projects.">Des projets réels, déployés et documentés.</p>
+  </div>
+
+  <!-- ✅ FILTRES -->
+  <div class="filter-bar" role="group" aria-label="Filtrer les projets">
+    <button class="filter-btn active" data-filter="all" onclick="filterProjects('all')" data-fr="Tous" data-en="All">Tous</button>
+    <button class="filter-btn" data-filter="web" onclick="filterProjects('web')" data-fr="Web / PWA" data-en="Web / PWA">Web / PWA</button>
+    <button class="filter-btn" data-filter="python" onclick="filterProjects('python')" data-fr="Python" data-en="Python">Python</button>
+    <button class="filter-btn" data-filter="ia" onclick="filterProjects('ia')" data-fr="IA" data-en="AI">IA</button>
+    <button class="filter-btn" data-filter="bdd" onclick="filterProjects('bdd')" data-fr="BDD / MERISE" data-en="DB / MERISE">BDD / MERISE</button>
+  </div>
+
+  <div class="projects-grid">
+    <!-- English Master -->
+    <div class="project-card featured" data-categories="web">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#FF5C3A15,#3A7FFF15)">🇬🇧<div class="project-thumb-overlay" style="background:rgba(255,92,58,.05)"></div></div>
+      <div class="project-body">
+        <div class="project-type" data-fr="Application Web &amp; Android · Featured" data-en="Web &amp; Android App · Featured">Application Web &amp; Android · Featured</div>
+        <div class="project-title">English Master</div>
+        <div class="project-desc" data-fr="Application progressive (PWA) d'apprentissage de l'anglais avec reconnaissance vocale, mode révision, statistiques de progression et mot du jour. Convertie en app Android via PWABuilder." data-en="Progressive Web App (PWA) for learning English with voice recognition, revision mode, progress stats and word of the day. Converted to Android via PWABuilder.">Application progressive (PWA) d'apprentissage de l'anglais avec reconnaissance vocale, mode révision, statistiques de progression et mot du jour. Convertie en app Android via PWABuilder.</div>
+        <div class="project-stack"><span class="stack-tag">React</span><span class="stack-tag">PWA</span><span class="stack-tag">Speech API</span><span class="stack-tag">Android</span><span class="stack-tag">GitHub Pages</span></div>
+        <div class="project-links">
+          <a href="https://sultan226-tech.github.io/English-master/" target="_blank" rel="noopener noreferrer" class="project-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-fr="Voir le projet" data-en="Live demo">Voir le projet</span></a>
+          <a href="https://github.com/Sultan226-Tech/English-master" target="_blank" rel="noopener noreferrer" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg><span data-fr="Code source" data-en="Source code">Code source</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signal Social -->
+    <div class="project-card" data-categories="web">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#6B5CE715,#3A7FFF15)">📡<div class="project-thumb-overlay" style="background:rgba(107,92,231,.05)"></div></div>
+      <div class="project-body">
+        <div class="project-type">Application Web · PWA</div>
+        <div class="project-title">Signal Social</div>
+        <div class="project-desc" data-fr="Messagerie en code morse (PWA) avec hachage PIN SHA-256, protection contre les tentatives, partage de clé via QR code et mode hors-ligne." data-en="Morse code messaging PWA with SHA-256 PIN hashing, lockout protection, QR key sharing and offline mode.">Messagerie en code morse (PWA) avec hachage PIN SHA-256, protection contre les tentatives, partage de clé via QR code et mode hors-ligne.</div>
+        <div class="project-stack"><span class="stack-tag">JavaScript</span><span class="stack-tag">PWA</span><span class="stack-tag">SHA-256</span><span class="stack-tag">QR Code</span></div>
+        <div class="project-links"><a href="https://github.com/Sultan226-Tech" target="_blank" rel="noopener noreferrer" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg><span data-fr="Code source" data-en="Source code">Code source</span></a></div>
+      </div>
+    </div>
+
+    <!-- LecteurVoix -->
+    <div class="project-card" data-categories="web">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1DC88A15,#F5C84215)">🎙️<div class="project-thumb-overlay" style="background:rgba(29,200,138,.05)"></div></div>
+      <div class="project-body">
+        <div class="project-type">Application Web · TTS</div>
+        <div class="project-title">LecteurVoix</div>
+        <div class="project-desc" data-fr="Application Text-to-Speech multilingue avec détection automatique de la langue, contrôle de vitesse et de voix." data-en="Multilingual Text-to-Speech app with automatic language detection, speed and voice controls.">Application Text-to-Speech multilingue avec détection automatique de la langue, contrôle de vitesse et de voix.</div>
+        <div class="project-stack"><span class="stack-tag">JavaScript</span><span class="stack-tag">Web Speech API</span><span class="stack-tag">HTML/CSS</span></div>
+        <div class="project-links"><a href="https://github.com/Sultan226-Tech" target="_blank" rel="noopener noreferrer" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg><span data-fr="Code source" data-en="Source code">Code source</span></a></div>
+      </div>
+    </div>
+
+    <!-- Gestionnaire Contacts -->
+    <div class="project-card" data-categories="python">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1DC88A15,#3A7FFF15)">📋<div class="project-thumb-overlay" style="background:rgba(29,200,138,.05)"></div></div>
+      <div class="project-body">
+        <div class="project-type" data-fr="Application Python" data-en="Python App">Application Python</div>
+        <div class="project-title" data-fr="Gestionnaire de Contacts" data-en="Contact Manager">Gestionnaire de Contacts</div>
+        <div class="project-desc" data-fr="Mini-application Python avec validation d'email par regex, lecture/écriture de fichiers et menu interactif en terminal." data-en="Python mini-app with email validation via regex, file I/O and interactive terminal menu.">Mini-application Python avec validation d'email par regex, lecture/écriture de fichiers et menu interactif en terminal.</div>
+        <div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">Regex</span><span class="stack-tag">File I/O</span><span class="stack-tag">Jupyter</span></div>
+        <div class="project-links"><a href="https://github.com/Sultan226-Tech" target="_blank" rel="noopener noreferrer" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg><span data-fr="Code source" data-en="Source code">Code source</span></a></div>
+      </div>
+    </div>
+
+    <!-- MERISE -->
+    <div class="project-card" data-categories="bdd">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#F5C84215,#FF5C3A15)">🗄️<div class="project-thumb-overlay" style="background:rgba(245,200,66,.05)"></div></div>
+      <div class="project-body">
+        <div class="project-type" data-fr="Modélisation BDD" data-en="DB Modeling">Modélisation BDD</div>
+        <div class="project-title">Cours MERISE — MCD/MLD/MPD</div>
+        <div class="project-desc" data-fr="Documentation complète sur la méthode MERISE : modélisation conceptuelle, logique et physique des données, cardinalités et règles de transformation." data-en="Complete documentation on the MERISE methodology: conceptual, logical and physical data modeling, cardinalities and transformation rules.">Documentation complète sur la méthode MERISE : modélisation conceptuelle, logique et physique des données, cardinalités et règles de transformation.</div>
+        <div class="project-stack"><span class="stack-tag">MERISE</span><span class="stack-tag">SQL</span><span class="stack-tag">MCD</span><span class="stack-tag">MLD</span></div>
+        <div class="project-links"><a href="https://github.com/Sultan226-Tech" target="_blank" rel="noopener noreferrer" class="project-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg><span data-fr="Code source" data-en="Source code">Code source</span></a></div>
+      </div>
+    </div>
+
+    <!-- Intellia -->
+    <div class="project-card" data-categories="ia web">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#6B5CE715,#1DC88A15)">🤖<div class="project-thumb-overlay" style="background:rgba(107,92,231,.05)"></div></div>
+      <div class="project-body">
+        <div class="project-type" data-fr="Plateforme IA · En développement" data-en="AI Platform · In development">Plateforme IA · En développement</div>
+        <div class="project-title">Intellia</div>
+        <div class="project-desc" data-fr="Plateforme d'apprentissage IA pour étudiants (freemium) : explications de concepts, guides d'étude, quiz et export PDF. Stack React · Flutter · Node.js · PostgreSQL." data-en="AI-powered learning platform for students (freemium): concept explanations, study guides, quizzes and PDF export. Stack React · Flutter · Node.js · PostgreSQL.">Plateforme d'apprentissage IA pour étudiants (freemium) : explications de concepts, guides d'étude, quiz et export PDF. Stack React · Flutter · Node.js · PostgreSQL.</div>
+        <div class="project-stack"><span class="stack-tag">React</span><span class="stack-tag">Flutter</span><span class="stack-tag">Node.js</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">IA</span></div>
+        <div class="project-links"><span class="badge-soon">🚧 <span data-fr="Bientôt disponible" data-en="Coming soon">Bientôt disponible</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ✅ TIMELINE -->
+<section id="timeline">
+  <div class="section-header">
+    <div class="section-label" data-fr="Parcours" data-en="Journey">Parcours</div>
+    <h2 class="section-title" data-fr="Mon évolution" data-en="My journey">Mon évolution</h2>
+    <p class="section-sub" data-fr="De la curiosité enfantine à la création de projets réels." data-en="From childhood curiosity to building real projects.">De la curiosité enfantine à la création de projets réels.</p>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot filled"></div>
+      <div class="timeline-date" data-fr="Octobre 2025" data-en="October 2025">Octobre 2025</div>
+      <div class="timeline-title" data-fr="Entrée en Génie Logiciel" data-en="Starting Software Engineering">Entrée en Génie Logiciel</div>
+      <div class="timeline-desc" data-fr="Début de ma 1ère année de Technologie du Génie Logiciel à l'Université Aube Nouvelle de Bobo-Dioulasso. Mise en place de mon environnement de développement : VS Code, Git, Node.js, GitHub." data-en="Starting my first year of Software Engineering at Université Aube Nouvelle de Bobo-Dioulasso. Setting up my dev environment: VS Code, Git, Node.js, GitHub.">Début de ma 1ère année de Technologie du Génie Logiciel à l'Université Aube Nouvelle de Bobo-Dioulasso. Mise en place de mon environnement de développement : VS Code, Git, Node.js, GitHub.</div>
+      <span class="timeline-badge tb-blue">🎓 Formation</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot filled"></div>
+      <div class="timeline-date" data-fr="Mars 2026" data-en="March 2026">Mars 2026</div>
+      <div class="timeline-title" data-fr="Premiers projets web" data-en="First web projects">Premiers projets web</div>
+      <div class="timeline-desc" data-fr="Construction des fondations HTML/CSS avec un CV en ligne et un blog. Apprentissage des bases JavaScript : formulaires, événements, manipulation du DOM." data-en="Building HTML/CSS foundations with an online CV and blog. Learning JavaScript basics: forms, events, DOM manipulation.">Construction des fondations HTML/CSS avec un CV en ligne et un blog. Apprentissage des bases JavaScript : formulaires, événements, manipulation du DOM.</div>
+      <span class="timeline-badge tb-orange">💻 Dev</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot filled"></div>
+      <div class="timeline-date" data-fr="Avril 2026" data-en="April 2026">Avril 2026</div>
+      <div class="timeline-title" data-fr="Secrétaire Général — FASO FLOW CODER" data-en="Secretary General — FASO FLOW CODER">Secrétaire Général — FASO FLOW CODER</div>
+      <div class="timeline-desc" data-fr="Prise de poste comme Secrétaire Général du club tech étudiant FASO FLOW CODER. Rédaction du dossier de reconnaissance officielle à soumettre au rectorat de l'université." data-en="Taking the role of Secretary General of the FASO FLOW CODER student tech club. Writing the official recognition dossier to submit to the university rector.">Prise de poste comme Secrétaire Général du club tech étudiant FASO FLOW CODER. Rédaction du dossier de reconnaissance officielle à soumettre au rectorat.</div>
+      <span class="timeline-badge tb-green">⚡ Leadership</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot filled"></div>
+      <div class="timeline-date" data-fr="2026" data-en="2026">2026</div>
+      <div class="timeline-title" data-fr="English Master & Signal Social" data-en="English Master & Signal Social">English Master & Signal Social</div>
+      <div class="timeline-desc" data-fr="Lancement d'English Master, ma première PWA React déployée sur GitHub Pages et convertie en app Android. Développement de Signal Social, une messagerie sécurisée en code morse." data-en="Launch of English Master, my first React PWA deployed on GitHub Pages and converted to Android. Development of Signal Social, a secure morse code messaging app.">Lancement d'English Master, ma première PWA React. Développement de Signal Social, une messagerie sécurisée en code morse avec SHA-256.</div>
+      <span class="timeline-badge tb-orange">🚀 Projets</span>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot filled"></div>
+      <div class="timeline-date" data-fr="2026 — En cours" data-en="2026 — Ongoing">2026 — En cours</div>
+      <div class="timeline-title" data-fr="Intellia & DigiSouk" data-en="Intellia & DigiSouk">Intellia & DigiSouk</div>
+      <div class="timeline-desc" data-fr="Co-développement d'Intellia, une plateforme d'apprentissage IA freemium pour étudiants. Prototype de DigiSouk, marketplace de produits numériques pour le marché burkinabè avec paiement Orange Money / Moov Money." data-en="Co-developing Intellia, a freemium AI learning platform for students. DigiSouk prototype, a digital products marketplace for the Burkinabe market with Orange Money / Moov Money payment.">Co-développement d'Intellia (plateforme IA) et prototype de DigiSouk (marketplace numérique burkinabè avec Orange Money / Moov Money).</div>
+      <span class="timeline-badge tb-green">🤖 IA & Commerce</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ENGAGEMENT -->
+<section id="engagement">
+  <div class="section-header">
+    <div class="section-label" data-fr="Engagement" data-en="Involvement">Engagement</div>
+    <h2 class="section-title" data-fr="Au-delà du code" data-en="Beyond code">Au-delà du code</h2>
+    <p class="section-sub" data-fr="Mon implication dans la communauté tech locale et universitaire." data-en="My involvement in the local tech and university community.">Mon implication dans la communauté tech locale et universitaire.</p>
+  </div>
+  <div class="engagement-grid">
+    <div class="engagement-card">
+      <div class="engagement-icon">⚡</div>
+      <div class="engagement-role" data-fr="Secrétaire Général" data-en="Secretary General">Secrétaire Général</div>
+      <div class="engagement-title">FASO FLOW CODER</div>
+      <div class="engagement-desc" data-fr="Club technologique étudiant à l'Université Aube Nouvelle de Bobo-Dioulasso. En charge de l'organisation, de la communication officielle et du dossier de reconnaissance auprès du rectorat. Le club promeut la programmation, l'innovation numérique et l'entraide entre étudiants tech au Burkina Faso." data-en="Student tech club at Université Aube Nouvelle de Bobo-Dioulasso. Responsible for organization, official communication and the recognition dossier submitted to the rector. The club promotes programming, digital innovation and peer support among tech students in Burkina Faso.">Club technologique étudiant à l'Université Aube Nouvelle de Bobo-Dioulasso. En charge de l'organisation, de la communication officielle et du dossier de reconnaissance auprès du rectorat.</div>
+      <div class="engagement-tags"><span class="stack-tag">Leadership</span><span class="stack-tag">Organisation</span><span class="stack-tag">Tech community</span><span class="stack-tag">Bobo-Dioulasso</span></div>
+    </div>
+    <div class="engagement-card">
+      <div class="engagement-icon">🌍</div>
+      <div class="engagement-role" data-fr="Apprenant actif" data-en="Active learner">Apprenant actif</div>
+      <div class="engagement-title" data-fr="Apprentissage continu" data-en="Continuous learning">Apprentissage continu</div>
+      <div class="engagement-desc" data-fr="Participation à un club de pratique de l'anglais avec sessions dédiées en semaine. Suivi de cursus en ligne (freeCodeCamp, The Odin Project, CS50W) en parallèle de ma formation universitaire." data-en="Participation in an English practice club with dedicated weekday sessions. Following online curricula (freeCodeCamp, The Odin Project, CS50W) alongside my university studies.">Participation à un club de pratique de l'anglais avec sessions dédiées en semaine. Suivi de cursus en ligne (freeCodeCamp, The Odin Project, CS50W) en parallèle de ma formation universitaire.</div>
+      <div class="engagement-tags"><span class="stack-tag">Anglais</span><span class="stack-tag">Self-learning</span><span class="stack-tag">freeCodeCamp</span><span class="stack-tag">CS50W</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <div class="section-label" data-fr="À propos" data-en="About">À propos</div>
+    <h2 class="section-title" data-fr="Qui suis-je ?" data-en="Who am I?">Qui suis-je ?</h2>
+    <p class="section-sub" data-fr="Un étudiant passionné qui transforme ses cours en projets réels." data-en="A passionate student who turns coursework into real projects.">Un étudiant passionné qui transforme ses cours en projets réels.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p data-fr="Je m'appelle <strong>Cheick Mamadou Konaté</strong>, étudiant en première année de Technologie du Génie Logiciel à l'Université Aube Nouvelle de Bobo." data-en="My name is <strong>Cheick Mamadou Konaté</strong>, a first-year Software Engineering student at Université Aube Nouvelle de Bobo.">Je m'appelle <strong>Cheick Mamadou Konaté</strong>, étudiant en première année de Technologie du Génie Logiciel à l'Université Aube Nouvelle de Bobo.</p>
+      <p data-fr="Depuis mon enfance, j'ai toujours été fasciné par la technologie. Je prenais plaisir à démonter les appareils électriques pour comprendre comment ils fonctionnaient. Une curiosité qui, au fil du temps, est devenue une véritable passion." data-en="Since childhood, I've always been fascinated by technology. I enjoyed taking apart electrical appliances to understand how they worked — a curiosity that over time became a genuine passion.">Depuis mon enfance, j'ai toujours été fasciné par la technologie. Je prenais plaisir à démonter les appareils électriques pour comprendre comment ils fonctionnaient. Une curiosité qui, au fil du temps, est devenue une véritable passion.</p>
+      <p data-fr="Je m'intéresse particulièrement à <strong>l'intelligence artificielle</strong>, à la <strong>cybersécurité</strong> et à la <strong>robotique</strong>, trois domaines qui représentent l'avenir du numérique." data-en="I'm particularly interested in <strong>artificial intelligence</strong>, <strong>cybersecurity</strong> and <strong>robotics</strong> — three fields that represent the future of digital technology.">Je m'intéresse particulièrement à <strong>l'intelligence artificielle</strong>, à la <strong>cybersécurité</strong> et à la <strong>robotique</strong>, trois domaines qui représentent l'avenir du numérique.</p>
+      <p data-fr="Mon objectif : <strong>apporter ma contribution à l'évolution de la technologie et laisser une empreinte durable dans ce domaine.</strong>" data-en="My goal: <strong>to contribute to the evolution of technology and leave a lasting mark in this field.</strong>">Mon objectif : <strong>apporter ma contribution à l'évolution de la technologie et laisser une empreinte durable dans ce domaine.</strong></p>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-item"><div class="hi-icon" style="background:#FF5C3A20">🎓</div><div><div class="hi-title" data-fr="Génie Logiciel — 1ère année" data-en="Software Engineering — Year 1">Génie Logiciel — 1ère année</div><div class="hi-sub">Université Aube Nouvelle de Bobo</div></div></div>
+      <div class="highlight-item"><div class="hi-icon" style="background:#3A7FFF20">⚡</div><div><div class="hi-title" data-fr="Secrétaire Général — FASO FLOW CODER" data-en="Secretary General — FASO FLOW CODER">Secrétaire Général — FASO FLOW CODER</div><div class="hi-sub" data-fr="Club tech étudiant · Bobo-Dioulasso" data-en="Student tech club · Bobo-Dioulasso">Club tech étudiant · Bobo-Dioulasso</div></div></div>
+      <div class="highlight-item"><div class="hi-icon" style="background:#1DC88A20">📱</div><div><div class="hi-title" data-fr="Développeur Web & Mobile" data-en="Web & Mobile Developer">Développeur Web & Mobile</div><div class="hi-sub">React, PWA, Android (PWABuilder)</div></div></div>
+      <div class="highlight-item"><div class="hi-icon" style="background:#F5C84220">🌍</div><div><div class="hi-title" data-fr="Langues" data-en="Languages">Langues</div><div class="hi-sub" data-fr="Français · Anglais (en progression)" data-en="French · English (improving)">Français · Anglais (en progression)</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header" style="text-align:center">
+    <div class="section-label" data-fr="Contact" data-en="Contact">Contact</div>
+    <h2 class="section-title" data-fr="Travaillons ensemble" data-en="Let's work together">Travaillons ensemble</h2>
+    <p class="section-sub" style="margin:0 auto" data-fr="Une idée de projet ? Un stage ? N'hésite pas à me contacter." data-en="A project idea? An internship? Feel free to reach out.">Une idée de projet ? Un stage ? N'hésite pas à me contacter.</p>
+  </div>
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <h3 data-fr="Restons en contact 👋" data-en="Let's stay in touch 👋">Restons en contact 👋</h3>
+      <p data-fr="Je suis ouvert aux opportunités de stage, de collaboration ou simplement d'échange sur des sujets tech." data-en="I'm open to internship opportunities, collaborations or simply chatting about tech topics.">Je suis ouvert aux opportunités de stage, de collaboration ou simplement d'échange sur des sujets tech.</p>
+      <div class="contact-items">
+        <div class="contact-item"><div class="contact-item-icon" aria-hidden="true">🐙</div><a href="https://github.com/Sultan226-Tech" target="_blank" rel="noopener noreferrer">github.com/Sultan226-Tech</a></div>
+        <div class="contact-item"><div class="contact-item-icon" aria-hidden="true">🌐</div><a href="https://sultan226-tech.github.io" target="_blank" rel="noopener noreferrer">sultan226-tech.github.io</a></div>
+        <div class="contact-item"><div class="contact-item-icon" aria-hidden="true">📧</div><a href="/cdn-cgi/l/email-protection#a2d4c7ccc7d0cdd1d7ced6c3cce2c5cfc3cbce8cc1cdcf"><span class="__cf_email__" data-cfemail="acdac9c2c9dec3dfd9c0d8cdc2eccbc1cdc5c082cfc3c1">[email&#160;protected]</span></a></div>
+        <div class="contact-item"><div class="contact-item-icon" aria-hidden="true">📍</div><span data-fr="Bobo-Dioulasso, Burkina Faso" data-en="Bobo-Dioulasso, Burkina Faso">Bobo-Dioulasso, Burkina Faso</span></div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-group"><label class="form-label" for="contactName" data-fr="Nom" data-en="Name">Nom</label><input type="text" id="contactName" name="name" class="form-input" data-placeholder-fr="Votre nom" data-placeholder-en="Your name" placeholder="Votre nom" required autocomplete="name"/></div>
+      <div class="form-group"><label class="form-label" for="contactEmail">Email</label><input type="email" id="contactEmail" name="email" class="form-input" placeholder="votre@email.com" required autocomplete="email"/></div>
+      <div class="form-group"><label class="form-label" for="contactMsg" data-fr="Message" data-en="Message">Message</label><textarea id="contactMsg" name="message" class="form-textarea" data-placeholder-fr="Votre message..." data-placeholder-en="Your message..." placeholder="Votre message..." required></textarea></div>
+      <button class="form-btn" id="sendBtn" type="button" onclick="sendMessage()" data-fr="Envoyer le message →" data-en="Send message →">Envoyer le message →</button>
+      <p style="font-size:.75rem;color:var(--muted);text-align:center;margin-top:4px" data-fr="Ou contactez-moi sur <a href='https://github.com/Sultan226-Tech' target='_blank' style='color:var(--accent1)'>GitHub</a>" data-en="Or reach me on <a href='https://github.com/Sultan226-Tech' target='_blank' style='color:var(--accent1)'>GitHub</a>">Ou contactez-moi sur <a href="https://github.com/Sultan226-Tech" target="_blank" rel="noopener noreferrer" style="color:var(--accent1)">GitHub</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">sultan226<span>.</span></div>
+  <div data-fr="© 2026 Cheick Mamadou Konaté — Génie Logiciel · Bobo-Dioulasso" data-en="© 2026 Cheick Mamadou Konaté — Software Engineering · Bobo-Dioulasso">© 2026 Cheick Mamadou Konaté — Génie Logiciel · Bobo-Dioulasso</div>
+  <div data-fr="Fait avec ❤️ &amp; du code" data-en="Made with ❤️ &amp; code">Fait avec ❤️ &amp; du code</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ══════════════════════════════════════
+   CURSOR
+══════════════════════════════════════ */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function animate(){
+  rx+=(mx-rx)*.18; ry+=(my-ry)*.18;
+  cursor.style.transform=`translate(${mx-6}px,${my-6}px)`;
+  ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;
+  requestAnimationFrame(animate);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.borderColor='var(--accent2)';});
+  el.addEventListener('mouseleave',()=>{ring.style.borderColor='var(--accent1)';});
+});
+
+/* ══════════════════════════════════════
+   SCROLL PROGRESS
+══════════════════════════════════════ */
+window.addEventListener('scroll',()=>{
+  const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  document.getElementById('scrollLine').style.width=pct+'%';
+});
+
+/* ══════════════════════════════════════
+   ✅ DARK MODE
+══════════════════════════════════════ */
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+let isDark = localStorage.getItem('theme') === 'dark';
+
+function applyTheme(){
+  html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  themeBtn.textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+function toggleTheme(){ isDark = !isDark; applyTheme(); }
+applyTheme();
+
+/* ══════════════════════════════════════
+   ✅ TYPEWRITER
+══════════════════════════════════════ */
+const rolesFr = ['Développeur Web 💻', 'Étudiant IT 🎓', 'Créateur de PWA 📱', 'Passionné d\'IA 🤖', 'Secrétaire FASO FLOW CODER ⚡'];
+const rolesEn = ['Web Developer 💻', 'Software Eng. Student 🎓', 'PWA Creator 📱', 'AI Enthusiast 🤖', 'FASO FLOW CODER Sec. General ⚡'];
+let twIndex=0, twChar=0, twDeleting=false;
+const twEl = document.getElementById('typewriter');
+
+function typewrite(){
+  const roles = currentLang === 'fr' ? rolesFr : rolesEn;
+  const word = roles[twIndex % roles.length];
+  if(!twDeleting){
+    twEl.textContent = word.slice(0, ++twChar);
+    if(twChar === word.length){ twDeleting=true; setTimeout(typewrite,1800); return; }
+  } else {
+    twEl.textContent = word.slice(0, --twChar);
+    if(twChar===0){ twDeleting=false; twIndex++; setTimeout(typewrite,400); return; }
+  }
+  setTimeout(typewrite, twDeleting ? 40 : 80);
+}
+setTimeout(typewrite, 800);
+
+/* ══════════════════════════════════════
+   ✅ LANGUE FR / EN
+══════════════════════════════════════ */
+let currentLang = 'fr';
+
+function toggleLang(){
+  currentLang = currentLang === 'fr' ? 'en' : 'fr';
+  applyLang();
+}
+
+function applyLang(){
+  const btn = document.getElementById('langBtn');
+  const btnM = document.getElementById('langBtnMobile');
+  if(btn) btn.textContent = currentLang === 'fr' ? 'EN' : 'FR';
+  if(btnM) btnM.textContent = currentLang === 'fr' ? 'EN' : 'FR';
+
+  // Tous les éléments avec data-fr / data-en
+  document.querySelectorAll('[data-fr][data-en]').forEach(el => {
+    const val = el.getAttribute('data-' + currentLang);
+    if(val) el.innerHTML = val;
+  });
+
+  // Placeholders
+  document.querySelectorAll('[data-placeholder-fr]').forEach(el => {
+    el.placeholder = el.getAttribute('data-placeholder-' + currentLang) || el.placeholder;
+  });
+
+  // Mise à jour de la langue HTML
+  document.documentElement.lang = currentLang;
+
+  // Hero title
+  if(currentLang === 'en'){
+    document.querySelector('.hero-title').innerHTML = 'Software<br><span class="line2">Engineering &</span><br><span class="line3">Creator</span>';
+  } else {
+    document.querySelector('.hero-title').innerHTML = 'Génie<br><span class="line2">Logiciel &</span><br><span class="line3">Créateur</span>';
+  }
+}
+
+/* ══════════════════════════════════════
+   ✅ SKILL BARS
+══════════════════════════════════════ */
+const skillObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.style.width=e.target.dataset.width; skillObs.unobserve(e.target); }
+  });
+},{threshold:.3});
+document.querySelectorAll('.skill-bar').forEach(b=>skillObs.observe(b));
+
+/* ══════════════════════════════════════
+   ✅ COMPTEUR STATS
+══════════════════════════════════════ */
+function animateCounter(el,target,suffix='+'){
+  let cur=0; const step=target/(1500/16);
+  const t=setInterval(()=>{ cur=Math.min(cur+step,target); el.textContent=Math.floor(cur)+suffix; if(cur>=target)clearInterval(t); },16);
+}
+const statsObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const t=parseInt(e.target.dataset.target);
+      const s=e.target.dataset.suffix||'+';
+      if(!isNaN(t)) animateCounter(e.target,t,s);
+      statsObs.unobserve(e.target);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(el=>statsObs.observe(el));
+
+/* ══════════════════════════════════════
+   ✅ FILTRES PROJETS
+══════════════════════════════════════ */
+function filterProjects(cat){
+  document.querySelectorAll('.filter-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.filter===cat);
+  });
+  document.querySelectorAll('.project-card').forEach(card=>{
+    const cats = (card.dataset.categories||'').split(' ');
+    const show = cat==='all' || cats.includes(cat);
+    card.style.display = show ? 'flex' : 'none';
+  });
+}
+
+/* ══════════════════════════════════════
+   ✅ HAMBURGER
+══════════════════════════════════════ */
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+function closeMobileMenu(){
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded','false');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow='';
+}
+hamburger.addEventListener('click',()=>{
+  const o=hamburger.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded',o);
+  mobileMenu.classList.toggle('open',o);
+  document.body.style.overflow=o?'hidden':'';
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileMenu();});
+
+/* ══════════════════════════════════════
+   ✅ TOAST
+══════════════════════════════════════ */
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast show '+type;
+  setTimeout(()=>{t.className='toast';},4000);
+}
+
+/* ══════════════════════════════════════
+   ✅ FORMULAIRE CONTACT
+══════════════════════════════════════ */
+async function sendMessage(){
+  const name=document.getElementById('contactName').value.trim();
+  const email=document.getElementById('contactEmail').value.trim();
+  const message=document.getElementById('contactMsg').value.trim();
+  const btn=document.getElementById('sendBtn');
+  if(!name||!email||!message){ showToast('⚠️ Veuillez remplir tous les champs.','error'); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showToast('⚠️ Email invalide.','error'); return; }
+  btn.disabled=true; btn.textContent='Envoi en cours...';
+  try{
+    const res=await fetch('https://formspree.io/f/xaqayvzq',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name,email,message})
+    });
+    if(res.ok){
+      showToast('✅ Message envoyé avec succès !','success');
+      document.getElementById('contactName').value='';
+      document.getElementById('contactEmail').value='';
+      document.getElementById('contactMsg').value='';
+    } else throw new Error();
+  } catch {
+    window.location.href=`mailto:venerosultan@gmail.com?subject=Contact depuis le portfolio&body=Nom: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0A%0AMessage:%0A${encodeURIComponent(message)}`;
+    showToast('📧 Redirection vers votre client mail...','');
+  } finally {
+    btn.disabled=false;
+    btn.textContent=currentLang==='fr'?'Envoyer le message →':'Send message →';
+  }
+}
+
+/* ══════════════════════════════════════
+   ✅ CV DOWNLOAD
+══════════════════════════════════════ */
+function downloadCV(e){
+  e.preventDefault();
+  window.open('https://sultan226-tech.github.io/cv-sultan.pdf','_blank');
+}
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; revObs.unobserve(e.target);
+    }
+  });
+},{threshold:.08});
+document.querySelectorAll('.project-card,.skill-card,.timeline-item,.engagement-card,.about-text,.about-highlights,.highlight-item').forEach(el=>{
+  el.style.opacity='0'; el.style.transform='translateY(32px)';
+  el.style.transition='opacity .6s ease, transform .6s ease';
+  revObs.observe(el);
+});
+</script>
+</body>
+  </html>
