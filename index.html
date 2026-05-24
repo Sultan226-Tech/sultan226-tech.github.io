@@ -603,6 +603,143 @@
     /* Scroll line */
     .scroll-line { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent1); z-index: 200; width: 0%; transition: width .1s; }
 
+    /* ── SERVICES ── */
+    #services { background: var(--bg); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 48px var(--shadow-hover);
+      border-color: var(--accent1);
+    }
+    .service-card.featured {
+      border-color: var(--accent1);
+    }
+    .service-card.featured::after {
+      content: attr(data-badge);
+      position: absolute; top: 16px; right: 16px;
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase;
+      background: var(--accent1); color: #fff;
+      padding: 4px 10px; border-radius: 100px;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      transition: width .4s ease;
+    }
+    .service-card:hover::before { width: 100%; }
+    .service-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+    .service-name {
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+    }
+    .service-price {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem; font-weight: 900;
+      color: var(--ink); line-height: 1; margin-bottom: 4px;
+    }
+    .service-price span { font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 400; color: var(--muted); }
+    .service-delay {
+      font-size: .8rem; color: var(--accent1); font-weight: 600; margin-bottom: 24px;
+    }
+    .service-features {
+      list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px;
+    }
+    .service-features li {
+      font-size: .88rem; color: var(--muted);
+      display: flex; align-items: flex-start; gap: 9px; line-height: 1.4;
+    }
+    .service-features li::before { content: '✓'; color: var(--accent3); font-weight: 700; flex-shrink: 0; }
+    .service-btn {
+      display: block; width: 100%; padding: 13px;
+      border-radius: 100px; text-align: center; text-decoration: none;
+      font-size: .82rem; font-weight: 600; letter-spacing: .04em;
+      transition: all .25s;
+    }
+    .service-btn-outline {
+      border: 1.5px solid var(--border); color: var(--ink); background: transparent;
+    }
+    .service-btn-outline:hover { border-color: var(--accent1); color: var(--accent1); }
+    .service-btn-filled {
+      background: var(--ink); color: var(--bg); border: none;
+    }
+    .service-btn-filled:hover { background: var(--accent1); color: #fff; transform: translateY(-2px); }
+
+    /* Cours particuliers */
+    .cours-band {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 36px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 24px; flex-wrap: wrap;
+      margin-bottom: 40px;
+      transition: all .3s;
+    }
+    .cours-band:hover { box-shadow: 0 16px 40px var(--shadow-hover); }
+    .cours-band::before {
+      content: ''; position: absolute;
+    }
+    .cours-left { flex: 1; min-width: 200px; }
+    .cours-left h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem; font-weight: 700; margin-bottom: 6px;
+    }
+    .cours-left p { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+    .cours-right { flex-shrink: 0; text-align: right; }
+    .cours-right .service-price { margin-bottom: 2px; }
+    .cours-right .service-delay { margin-bottom: 14px; }
+
+    /* Process */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .process-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px 20px;
+      transition: all .3s;
+    }
+    .process-step:hover { transform: translateY(-3px); box-shadow: 0 12px 32px var(--shadow); }
+    .process-num {
+      font-family: 'Fraunces', serif;
+      font-size: 2.8rem; font-weight: 900;
+      color: var(--accent1); opacity: .15; line-height: 1; margin-bottom: 10px;
+    }
+    .process-step h4 {
+      font-family: 'Fraunces', serif;
+      font-size: .95rem; font-weight: 700; margin-bottom: 6px;
+    }
+    .process-step p { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .cours-band { flex-direction: column; }
+      .cours-right { text-align: left; }
+    }
+    @media (max-width: 500px) {
+      .process-steps { grid-template-columns: 1fr; }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
@@ -635,6 +772,7 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navigation">
   <a href="#skills" onclick="closeMobileMenu()" data-fr="Skills" data-en="Skills">Skills</a>
+  <a href="#services" onclick="closeMobileMenu()" data-fr="Services" data-en="Services">Services</a>
   <a href="#projects" onclick="closeMobileMenu()" data-fr="Projets" data-en="Projects">Projets</a>
   <a href="#timeline" onclick="closeMobileMenu()" data-fr="Parcours" data-en="Journey">Parcours</a>
   <a href="#engagement" onclick="closeMobileMenu()" data-fr="Engagement" data-en="Involvement">Engagement</a>
@@ -651,6 +789,7 @@
   <a href="#hero" class="nav-logo">sultan226<span>.</span></a>
   <ul class="nav-links" role="list">
     <li><a href="#skills" data-fr="Skills" data-en="Skills">Skills</a></li>
+    <li><a href="#services" data-fr="Services" data-en="Services">Services</a></li>
     <li><a href="#projects" data-fr="Projets" data-en="Projects">Projets</a></li>
     <li><a href="#timeline" data-fr="Parcours" data-en="Journey">Parcours</a></li>
     <li><a href="#engagement" data-fr="Engagement" data-en="Involvement">Engagement</a></li>
@@ -906,6 +1045,107 @@
       <span class="timeline-badge tb-green">🤖 IA & Commerce</span>
     </div>
 
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="section-header">
+    <div class="section-label" data-fr="💼 Mes Services" data-en="💼 My Services">💼 Mes Services</div>
+    <h2 class="section-title" data-fr="Des solutions web qui rapportent." data-en="Web solutions that deliver.">Des solutions web qui rapportent.</h2>
+    <p class="section-sub" data-fr="Sites professionnels, interfaces modernes, livraison rapide — au bon prix pour Bobo-Dioulasso." data-en="Professional websites, modern interfaces, fast delivery — at the right price for Bobo-Dioulasso.">Sites professionnels, interfaces modernes, livraison rapide — au bon prix pour Bobo-Dioulasso.</p>
+  </div>
+
+  <!-- Packs -->
+  <div class="services-grid">
+
+    <div class="service-card">
+      <span class="service-icon">🌐</span>
+      <div class="service-name" data-fr="Pack Essentiel" data-en="Essential Pack">Pack Essentiel</div>
+      <div class="service-price">30 000 <span>FCFA</span></div>
+      <div class="service-delay" data-fr="⏱ Livraison 3–5 jours" data-en="⏱ Delivery 3–5 days">⏱ Livraison 3–5 jours</div>
+      <ul class="service-features">
+        <li data-fr="Site vitrine 3 à 5 pages" data-en="3 to 5 page showcase website">Site vitrine 3 à 5 pages</li>
+        <li data-fr="Design professionnel & moderne" data-en="Professional & modern design">Design professionnel & moderne</li>
+        <li data-fr="Bouton WhatsApp intégré" data-en="WhatsApp button integrated">Bouton WhatsApp intégré</li>
+        <li data-fr="Responsive mobile" data-en="Mobile responsive">Responsive mobile</li>
+        <li data-fr="Hébergement conseillé" data-en="Hosting advice included">Hébergement conseillé</li>
+      </ul>
+      <a href="https://wa.me/22607178289?text=Bonjour%20Sultan%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20le%20Pack%20Essentiel" target="_blank" rel="noopener noreferrer" class="service-btn service-btn-outline" data-fr="Demander un devis" data-en="Request a quote">Demander un devis</a>
+    </div>
+
+    <div class="service-card featured" data-badge="Populaire">
+      <span class="service-icon">🚀</span>
+      <div class="service-name" data-fr="Pack Complet" data-en="Full Pack">Pack Complet</div>
+      <div class="service-price">50 000 <span>FCFA</span></div>
+      <div class="service-delay" data-fr="⏱ Livraison 5–7 jours" data-en="⏱ Delivery 5–7 days">⏱ Livraison 5–7 jours</div>
+      <ul class="service-features">
+        <li data-fr="Tout le Pack Essentiel" data-en="Everything in Essential Pack">Tout le Pack Essentiel</li>
+        <li data-fr="Galerie photos / portfolio" data-en="Photo gallery / portfolio">Galerie photos / portfolio</li>
+        <li data-fr="Carte Google Maps intégrée" data-en="Google Maps integrated">Carte Google Maps intégrée</li>
+        <li data-fr="Formulaire de contact" data-en="Contact form">Formulaire de contact</li>
+        <li data-fr="1 mois de support gratuit" data-en="1 month free support">1 mois de support gratuit</li>
+        <li data-fr="Formation utilisation (1h)" data-en="Usage training (1h)">Formation utilisation (1h)</li>
+      </ul>
+      <a href="https://wa.me/22607178289?text=Bonjour%20Sultan%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20le%20Pack%20Complet" target="_blank" rel="noopener noreferrer" class="service-btn service-btn-filled" data-fr="Je veux ce pack" data-en="I want this pack">Je veux ce pack</a>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">⚙️</span>
+      <div class="service-name" data-fr="Sur Mesure" data-en="Custom">Sur Mesure</div>
+      <div class="service-price" data-fr="Sur <span>devis</span>" data-en="On <span>quote</span>">Sur <span>devis</span></div>
+      <div class="service-delay" data-fr="⏱ Délai selon projet" data-en="⏱ Timeline per project">⏱ Délai selon projet</div>
+      <ul class="service-features">
+        <li data-fr="Application web complète" data-en="Full web application">Application web complète</li>
+        <li data-fr="API & base de données" data-en="API & database">API & base de données</li>
+        <li data-fr="Dashboard d'administration" data-en="Admin dashboard">Dashboard d'administration</li>
+        <li data-fr="Système de gestion (école, stock…)" data-en="Management system (school, stock…)">Système de gestion (école, stock…)</li>
+        <li data-fr="PWA / app installable" data-en="PWA / installable app">PWA / app installable</li>
+      </ul>
+      <a href="https://wa.me/22607178289?text=Bonjour%20Sultan%2C%20j%27ai%20un%20projet%20sur%20mesure%20%C3%A0%20discuter" target="_blank" rel="noopener noreferrer" class="service-btn service-btn-outline" data-fr="Parlons de ton projet" data-en="Let's talk about your project">Parlons de ton projet</a>
+    </div>
+
+  </div>
+
+  <!-- Cours particuliers -->
+  <div class="cours-band">
+    <div class="cours-left">
+      <span class="service-icon">📚</span>
+      <h3 data-fr="Cours particuliers Informatique" data-en="Private Computer Science Lessons">Cours particuliers Informatique</h3>
+      <p data-fr="Initiation à l'informatique, Word, Excel, notions de développement web — pour lycéens, étudiants et professionnels à Bobo-Dioulasso." data-en="Computer basics, Word, Excel, web development intro — for high school students, university students and professionals in Bobo-Dioulasso.">Initiation à l'informatique, Word, Excel, notions de développement web — pour lycéens, étudiants et professionnels à Bobo-Dioulasso.</p>
+    </div>
+    <div class="cours-right">
+      <div class="service-price">15 000 <span>FCFA</span></div>
+      <div class="service-delay" data-fr="formation complète / 1 mois" data-en="full training / 1 month">formation complète / 1 mois</div>
+      <a href="https://wa.me/22607178289?text=Bonjour%20Sultan%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20la%20formation%20informatique%201%20mois" target="_blank" rel="noopener noreferrer" class="service-btn service-btn-outline" data-fr="S'inscrire à la formation" data-en="Enroll in training">S'inscrire à la formation</a>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div class="section-header" style="margin-bottom:28px">
+    <div class="section-label" data-fr="Comment ça marche ?" data-en="How does it work?">Comment ça marche ?</div>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="process-num">01</div>
+      <h4 data-fr="Contact" data-en="Contact">Contact</h4>
+      <p data-fr="Tu m'envoies un message WhatsApp avec ton idée ou ton besoin." data-en="You send me a WhatsApp message with your idea or need.">Tu m'envoies un message WhatsApp avec ton idée ou ton besoin.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">02</div>
+      <h4 data-fr="Devis" data-en="Quote">Devis</h4>
+      <p data-fr="Je te propose un tarif clair et un délai précis." data-en="I give you a clear price and a precise timeline.">Je te propose un tarif clair et un délai précis.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">03</div>
+      <h4 data-fr="Développement" data-en="Development">Développement</h4>
+      <p data-fr="Je code ton projet et te montre l'avancement régulièrement." data-en="I build your project and show you regular updates.">Je code ton projet et te montre l'avancement régulièrement.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">04</div>
+      <h4 data-fr="Livraison" data-en="Delivery">Livraison</h4>
+      <p data-fr="Tu reçois ton site opérationnel, prêt à être mis en ligne." data-en="You get your fully operational website, ready to go live.">Tu reçois ton site opérationnel, prêt à être mis en ligne.</p>
+    </div>
   </div>
 </section>
 
@@ -1228,7 +1468,7 @@ const revObs=new IntersectionObserver(entries=>{
     }
   });
 },{threshold:.08});
-document.querySelectorAll('.project-card,.skill-card,.timeline-item,.engagement-card,.about-text,.about-highlights,.highlight-item').forEach(el=>{
+document.querySelectorAll('.project-card,.skill-card,.timeline-item,.engagement-card,.about-text,.about-highlights,.highlight-item,.service-card,.cours-band,.process-step').forEach(el => {
   el.style.opacity='0'; el.style.transform='translateY(32px)';
   el.style.transition='opacity .6s ease, transform .6s ease';
   revObs.observe(el);
