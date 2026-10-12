@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sultan226-tech.github.io/sitemap.xml
