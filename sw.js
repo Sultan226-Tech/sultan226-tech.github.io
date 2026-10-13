@@ -1,6 +1,6 @@
 /* Service worker du portfolio : fonctionne hors-ligne après la première visite.
    Pour forcer la mise à jour chez tous les visiteurs, change le numéro de VERSION. */
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = 'portfolio-' + VERSION;
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './og-image.png', './cv-fr.pdf', './cv-en.pdf'];
 const EXTERNAL = ['cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
@@ -17,6 +17,7 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
   if (!sameOrigin && !EXTERNAL.includes(url.hostname)) return;   // WhatsApp, GitHub… : jamais en cache
+  if (sameOrigin && url.pathname.endsWith('/ai-config.js')) return;  // réglage de l'assistant IA : toujours la version en ligne
 
   if (req.mode === 'navigate') {                                  // page : réseau d'abord, cache en secours
     e.respondWith(fetch(req).then(res => {
