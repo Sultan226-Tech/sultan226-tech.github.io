@@ -1977,14 +1977,16 @@ document.querySelectorAll('.project-card,.skill-card,.timeline-item,.engagement-
       err='';
       try{
         const ctl=new AbortController(); const to=setTimeout(()=>ctl.abort(),20000);
-        const r=await fetch(AI_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:hist.concat([{role:'user',content:txt}]).slice(-8),lang:currentLang}),signal:ctl.signal});
+        const post=m=>fetch(AI_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:m,lang:currentLang}),signal:ctl.signal});
+        let r=await post(hist.concat([{role:'user',content:txt}]).slice(-8));
+        if(!r.ok&&r.status!==429&&hist.length) r=await post([{role:'user',content:txt}]); /* nouvelle tentative sans l'historique */
         clearTimeout(to);
         if(r.status===429) err='rate'; else if(!r.ok) err='http'; else { const j=await r.json(); reply=String(j.reply||'').trim(); if(!reply) err='empty'; }
       }catch(e){ err='net'; }
     }
     typing.remove();
     if(reply){
-      hist.push({role:'user',content:txt},{role:'assistant',content:reply}); if(hist.length>8) hist.splice(0,hist.length-8);
+      hist.push({role:'user',content:txt},{role:'assistant',content:reply.slice(0,700)}); if(hist.length>8) hist.splice(0,hist.length-8);
       await typeSay(reply,/whatsapp/i.test(reply)?[['WhatsApp',openWA(hiMsg())]]:null); bot.setExpr('happy');
     } else {
       const hit=LOCAL.find(x=>x[0].test(txt));
