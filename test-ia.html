@@ -43,8 +43,10 @@ $('go').onclick = async () => {
     clearTimeout(to);
     const txt = await r.text(); const ms = Math.round(performance.now() - t0);
     let j = null; try { j = JSON.parse(txt); } catch(e) {}
-    const raw = 'Statut HTTP : ' + r.status + '\nDurée : ' + ms + ' ms\nRéponse : ' + txt.slice(0, 600);
-    if (r.ok && j && j.reply) show('ok', '✅ Tout fonctionne', 'Réponse de l\'IA : ' + j.reply, raw);
+    const ver = r.headers.get('x-rb-version');
+    const raw = 'Statut HTTP : ' + r.status + '\nVersion du Worker : ' + (ver || 'ancienne (avant la v3)') + '\nDurée : ' + ms + ' ms\nRéponse : ' + txt.slice(0, 600);
+    if (r.ok && j && j.reply && ver !== '3') show('ko', '⚠️ Le Worker répond, mais c\'est une ancienne version', 'Dans Cloudflare : Worker → Modifier le code → colle tout le dernier worker.js → Déployer. Puis refais ce test : il doit afficher « Version du Worker : 3 ».', raw);
+    else if (r.ok && j && j.reply) show('ok', '✅ Tout fonctionne (Worker v3)', 'Réponse de l\'IA : ' + j.reply, raw);
     else if (r.ok && !j) show('ko', "Le Worker répond, mais ce n'est pas mon code", "Le texte reçu n'est pas du JSON (souvent « Hello World »). Dans Cloudflare : ouvre le Worker, « Modifier le code », colle tout le contenu de worker.js, puis appuie sur « Déployer ».", raw);
     else if (r.status === 403) show('ko', 'Site refusé', "Le Worker n'accepte que https://sultan226-tech.github.io. Ouvre cette page de test depuis ce site (pas depuis un fichier local ni une autre adresse).", raw);
     else if (r.status === 429) show('ko', 'Trop de messages', "La limite par visiteur est atteinte. Attends 10 minutes et réessaie.", raw);
