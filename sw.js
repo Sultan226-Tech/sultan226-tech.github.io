@@ -1,6 +1,6 @@
 /* Service worker du portfolio : fonctionne hors-ligne après la première visite.
    Pour forcer la mise à jour chez tous les visiteurs, change le numéro de VERSION. */
-const VERSION = 'v3';
+const VERSION = 'v4';
 const CACHE = 'portfolio-' + VERSION;
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './og-image.png', './cv-fr.pdf', './cv-en.pdf'];
 const EXTERNAL = ['cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
@@ -17,12 +17,14 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
   if (!sameOrigin && !EXTERNAL.includes(url.hostname)) return;   // WhatsApp, GitHub… : jamais en cache
-  if (sameOrigin && url.pathname.endsWith('/ai-config.js')) return;  // réglage de l'assistant IA : toujours la version en ligne
+  if (sameOrigin && !/^\/[^/]*$/.test(url.pathname)) return;    // sous-dossiers (English-master, Brief-Client…) : on n'y touche pas
+  if (sameOrigin && /\/(ai-config\.js|test-ia\.html)$/.test(url.pathname)) return;  // réglage et test de l'IA : toujours la version en ligne
 
-  if (req.mode === 'navigate') {                                  // page : réseau d'abord, cache en secours
+  if (req.mode === 'navigate') {                                  // accueil : réseau d'abord, cache en secours
     e.respondWith(fetch(req).then(res => {
-      const copy = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', copy)); return res;
-    }).catch(() => caches.match('./index.html').then(r => r || caches.match('./'))));
+      if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', copy)); }
+      return res;
+    }).catch(() => caches.match('./index.html').then(r => r || caches.match('./') || Response.error())));
     return;
   }
   e.respondWith(caches.open(CACHE).then(cache => cache.match(req).then(hit => {   // reste : cache d'abord, mise à jour en arrière-plan

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Test de l'assistant IA</title>
+<script src="ai-config.js"></script>
+<style>
+  body{font:16px/1.55 system-ui,sans-serif;margin:0;padding:20px;background:#F7F5F0;color:#111010;max-width:34rem;margin-inline:auto}
+  h1{font-size:1.4rem;margin:0 0 6px} p{margin:8px 0}
+  code,pre{background:#fff;border:1px solid #E2DFD8;border-radius:8px;padding:2px 6px;word-break:break-all}
+  pre{padding:12px;white-space:pre-wrap;font-size:.85rem}
+  button{font:600 1rem system-ui;background:#FF5C3A;color:#fff;border:0;border-radius:99px;padding:12px 22px;margin:14px 0}
+  button:disabled{opacity:.5}
+  .ok{background:#E6F7EF;border:1px solid #1DC88A} .ko{background:#FDECE8;border:1px solid #FF5C3A}
+  .box{border-radius:12px;padding:12px 14px;margin:12px 0}
+</style>
+</head>
+<body>
+<h1>Test de l'assistant IA</h1>
+<p>Adresse lue dans <code>ai-config.js</code> :</p>
+<p><code id="url"></code></p>
+<button id="go" type="button">Envoyer un message de test</button>
+<div id="diag"></div>
+<pre id="raw" hidden></pre>
+<script>
+const url = String(window.AI_ENDPOINT || '').trim();
+const $ = id => document.getElementById(id);
+$('url').textContent = url || '(vide)';
+function show(cls, title, help, raw){
+  $('diag').innerHTML = '<div class="box ' + cls + '"><b></b><p></p></div>';
+  $('diag').querySelector('b').textContent = title; $('diag').querySelector('p').textContent = help;
+  $('raw').hidden = false; $('raw').textContent = raw;
+}
+$('go').onclick = async () => {
+  if (!url) return show('ko', 'Adresse vide', "Le fichier ai-config.js est vide ou n'a pas été remplacé sur GitHub. Colle l'adresse de ton Worker entre les guillemets.", '');
+  if (!/^https:\/\/|^http:\/\/(localhost|127\.0\.0\.1)/.test(url)) return show('ko', "L'adresse est incomplète", "Elle doit commencer par https:// (exemple : https://rb226.ton-nom.workers.dev).", url);
+  $('go').disabled = true; const t0 = performance.now();
+  try {
+    const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 20000);
+    const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({messages:[{role:'user',content:'Dis bonjour en une phrase.'}], lang:'fr'}), signal: ctl.signal});
+    clearTimeout(to);
+    const txt = await r.text(); const ms = Math.round(performance.now() - t0);
+    let j = null; try { j = JSON.parse(txt); } catch(e) {}
+    const raw = 'Statut HTTP : ' + r.status + '\nDurée : ' + ms + ' ms\nRéponse : ' + txt.slice(0, 600);
+    if (r.ok && j && j.reply) show('ok', '✅ Tout fonctionne', 'Réponse de l\'IA : ' + j.reply, raw);
+    else if (r.ok && !j) show('ko', "Le Worker répond, mais ce n'est pas mon code", "Le texte reçu n'est pas du JSON (souvent « Hello World »). Dans Cloudflare : ouvre le Worker, « Modifier le code », colle tout le contenu de worker.js, puis appuie sur « Déployer ».", raw);
+    else if (r.status === 403) show('ko', 'Site refusé', "Le Worker n'accepte que https://sultan226-tech.github.io. Ouvre cette page de test depuis ce site (pas depuis un fichier local ni une autre adresse).", raw);
+    else if (r.status === 429) show('ko', 'Trop de messages', "La limite par visiteur est atteinte. Attends 10 minutes et réessaie.", raw);
+    else if (r.status === 500 && j && j.error === 'not_configured') show('ko', "L'IA n'est pas reliée au Worker", "Dans Cloudflare : Worker → Paramètres → Liaisons → Ajouter → Workers AI, avec le nom exact AI (deux majuscules). Puis redéploie.", raw);
+    else if (r.status === 502) show('ko', "L'IA n'a pas répondu", "Le Worker fonctionne mais l'IA a échoué. Dans Cloudflare : Worker → Paramètres → Variables, ajoute DEBUG = 1 (texte), redéploie et refais ce test : le message d'erreur exact s'affichera ci-dessous.", raw);
+    else show('ko', 'Réponse inattendue', "Envoie une capture de cet écran pour qu'on corrige.", raw);
+  } catch (e) {
+    show('ko', "Le navigateur n'a pas pu joindre le Worker", "L'adresse est fausse, le Worker n'est pas déployé, ou la connexion est coupée. Ouvre l'adresse seule dans le navigateur : tu dois voir {\"error\":\"method_not_allowed\"}.", String(e));
+  }
+  $('go').disabled = false;
+};
+</script>
+</body>
+</html>
